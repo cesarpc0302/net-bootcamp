@@ -1,0 +1,125 @@
+// 1. A Very Big Sum
+
+class Solution {
+
+    static long aVeryBigSum(int n, long[] ar) {
+        long result = 0;
+        foreach (long value in ar){
+            result += value;
+        }
+        return result;
+    }
+
+    static void Main(String[] args) {
+        int n = Convert.ToInt32(Console.ReadLine());
+        string[] ar_temp = Console.ReadLine().Split(' ');
+        long[] ar = Array.ConvertAll(ar_temp,Int64.Parse);
+        long result = aVeryBigSum(n, ar);
+        Console.WriteLine(result);
+    }
+}
+
+// 2. Diagonal Difference
+
+class Solution {
+
+    static void Main(String[] args) {
+        int n = Convert.ToInt32(Console.ReadLine());
+        int[][] a = new int[n][];
+        for(int a_i = 0; a_i < n; a_i++){
+           string[] a_temp = Console.ReadLine().Split(' ');
+           a[a_i] = Array.ConvertAll(a_temp,Int32.Parse);
+        }
+        
+        
+        int diag1 = 0;
+        int diag2 = 0;
+        
+        for (int i = 0; i < a.Length; i++){
+            diag1 += a[i][i];
+            diag2 += a[i][a.Length - i - 1];
+        }
+        
+        Console.WriteLine(Math.Abs(diag1-diag2));
+    }
+}
+
+// 3. Grading Students
+
+class Solution {
+
+    static int[] solve(int[] grades){
+        int[] finalGrades = new int[grades.Length];
+        int i = 0;
+        foreach(int value in grades){
+            if(value < 38){
+                finalGrades[i] = value;
+            }else if((value % 5) < 3){
+                finalGrades[i] = value;
+            }else{
+                finalGrades[i] = value - (value % 5) + 5;
+            }
+            i++;
+        }
+        
+        return finalGrades;
+    }
+
+    static void Main(String[] args) {
+        int n = Convert.ToInt32(Console.ReadLine());
+        int[] grades = new int[n];
+        for(int grades_i = 0; grades_i < n; grades_i++){
+           grades[grades_i] = Convert.ToInt32(Console.ReadLine());   
+        }
+        int[] result = solve(grades);
+        Console.WriteLine(String.Join("\n", result));
+        
+
+    }
+}
+
+// 4. Mars Exploration
+
+class Solution {
+
+    static void Main(String[] args) {
+        string S = Console.ReadLine();
+        int result = 0;
+        
+        for (int i = 0; i < S.Length; i++){
+            if(i%3 == 1){
+                if(S.Substring(i,1) != "O"){
+                    result++;
+                }
+            }else if(S.Substring(i,1) != "S"){
+                    result++;
+            }    
+        }
+        
+        Console.WriteLine(result);
+    }
+}
+
+// 5. Marc's Cakewalk
+
+class Solution {
+
+    static void Main(String[] args) {
+        int n = Convert.ToInt32(Console.ReadLine());
+        string[] calories_temp = Console.ReadLine().Split(' ');
+        int[] calories = Array.ConvertAll(calories_temp,Int32.Parse);
+        
+        Array.Sort(calories);
+        Array.Reverse(calories);
+        long miles = 0;
+        int i = 0;
+        
+        foreach(int value in calories){
+            miles += value * Convert.ToInt64(Math.Pow(2, i));
+            i++;
+        }
+        
+        Console.WriteLine(miles);
+    }
+}
+
