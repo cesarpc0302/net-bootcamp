@@ -7,15 +7,15 @@ namespace InventoryApp
     {
         static void Main(string[] args)
         {
-
+            Properties.Settings.Default.Bloked = false;  //for testing purposes
             // Validate if application is locked
-            if (Properties.Settings.Default.Bloked)
+            if (!Properties.Settings.Default.Bloked)
             {
                 // If no arguments were passed login as User
                 if (args.Length == 0)
                 {
                     Console.WriteLine("Logged as User");
-                    //LoginAsUser();
+                    LoginAsUser();
                 }
                 // If admin was passed as argument login as admin
                 else if (args[0] == "admin")
@@ -76,6 +76,7 @@ namespace InventoryApp
                     Console.WriteLine("Welcome {0}", username);
                     Console.WriteLine(" ");
                     loadAdminMenu();
+                    break;
                 }
                 else
                 {
@@ -181,6 +182,91 @@ namespace InventoryApp
                     loadAdminMenu();
                     break;
             }
+        }
+
+
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // User Login
+
+        // Clear the screen and call the load user menu function
+        static void LoginAsUser()
+        {
+            Console.Clear();
+            Console.WriteLine("Welcome User");
+            Console.WriteLine(" ");
+            loadUserMenu();
+
+        }
+
+
+        // Prints the user menu
+        static void loadUserMenu()
+        {
+
+            //Print user menu
+
+            Console.WriteLine("User Menu");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("1.  List Inventory");
+            Console.WriteLine("2.  Create new invoice");
+            Console.WriteLine("3.  Invoices Report");
+            Console.WriteLine("4.  Exit application");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.Write("Please select an option: ");
+            string option = Console.ReadLine();
+
+
+            // parse the user input and validate it 
+            int opt = 0;
+            Int32.TryParse(option, out opt);
+
+
+            // Switch beetween different options of the menu
+            switch (opt)
+            {
+
+                // List the whole inventory
+                case 1:
+                    Console.Clear();
+                    Console.WriteLine("Inventory:");
+                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    break;
+
+                // Create a new invoice
+                case 2:
+                    Console.Clear();
+                    Console.WriteLine("Create new invoice:");
+                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    break;
+
+                // Display te invoices report
+                case 3:
+                    Console.Clear();
+                    Console.WriteLine("Invoices report:");
+                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    break;
+
+                // Exit application
+                case 4:
+                    Console.Clear();
+                    Console.WriteLine("Exiting... Press any key to continue...");
+                    return;
+
+                // Invalid option case
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Invalid option, try again...");
+                    Console.WriteLine(" ");
+                    break;
+            }
+
+            loadUserMenu(); // load user menu again 
+
         }
     }
 }
