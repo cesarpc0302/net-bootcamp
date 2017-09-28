@@ -140,10 +140,7 @@ namespace InventoryApp
 
                 // Create a new article
                 case 2:
-                    Console.Clear();
-                    Console.WriteLine("Create new article:");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    CreateArticle();
                     break;
 
                 // Modify the artile quantities
@@ -230,6 +227,7 @@ namespace InventoryApp
 
                 // Create a new invoice
                 case 2:
+
                     Console.Clear();
                     Console.WriteLine("Create new invoice:");
                     Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
@@ -262,6 +260,12 @@ namespace InventoryApp
 
         }
 
+
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // List inventory
+
         static void printInventory()
         {
             string[] inv = ReadFiles.ListInventory();
@@ -286,5 +290,76 @@ namespace InventoryApp
             Console.ReadLine();
             Console.Clear();
         }
+
+
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // Create new article
+
+        static void CreateArticle()
+        {
+            int test = 0;
+
+            Console.Clear();
+            Console.WriteLine("Create new article:");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+
+            Console.WriteLine("");
+            Console.Write("Article ID: ");
+            string ArticleID = Console.ReadLine();
+
+            while (!Int32.TryParse(ArticleID, out test))
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Incorrect entry, please try again... ");
+                Console.WriteLine("");
+                Console.Write("Article ID: ");
+                ArticleID = Console.ReadLine();
+            }
+
+            Console.Write("");
+            Console.Write("Article Name: ");
+            string ArticleName = Console.ReadLine();
+
+            Console.Write("");
+            Console.Write("Article Cost: ");
+            string ArticleCost = Console.ReadLine();
+
+            while (!Int32.TryParse(ArticleCost, out test))
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Incorrect entry, please try again... ");
+                Console.WriteLine("");
+                Console.Write("Article Cost: ");
+                ArticleCost = Console.ReadLine();
+            }
+
+            Console.Write("");
+            Console.Write("Article Quantity: ");
+            string ArticleQuantity = Console.ReadLine();
+
+            while (!Int32.TryParse(ArticleQuantity, out test))
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Incorrect entry, please try again... ");
+                Console.WriteLine("");
+                Console.Write("Article Quantity: ");
+                ArticleQuantity = Console.ReadLine();
+            }
+
+            Console.WriteLine("");
+            Console.Clear();
+
+            string Article = ArticleID + " - " + ArticleName + " - " + ArticleCost + " - " + ArticleQuantity;
+
+            WriteFiles.AddArticle(Article);
+
+            Console.WriteLine("Article added succesfully!");
+            Console.WriteLine("");
+        }
+
+
     }
 }
