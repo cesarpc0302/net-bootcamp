@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using InventoryApp.FileManager;
 
 namespace InventoryApp
 {
@@ -134,11 +135,7 @@ namespace InventoryApp
 
                 //List the inventory
                 case 1:
-                    Console.Clear();
-                    Console.WriteLine("Inventory:");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    loadAdminMenu();
+                    printInventory();
                     break;
 
                 // Create a new article
@@ -147,7 +144,6 @@ namespace InventoryApp
                     Console.WriteLine("Create new article:");
                     Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
                     Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    loadAdminMenu();
                     break;
 
                 // Modify the artile quantities
@@ -156,7 +152,6 @@ namespace InventoryApp
                     Console.WriteLine("Modify article quantity:");
                     Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
                     Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    loadAdminMenu();
                     break;
 
                 // Remove an article
@@ -165,7 +160,6 @@ namespace InventoryApp
                     Console.WriteLine("Remove article:");
                     Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
                     Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    loadAdminMenu();
                     break;
 
                 // Exit application
@@ -179,9 +173,11 @@ namespace InventoryApp
                     Console.Clear();
                     Console.WriteLine("Invalid option, try again...");
                     Console.WriteLine(" ");
-                    loadAdminMenu();
                     break;
             }
+
+            loadAdminMenu();
+
         }
 
 
@@ -229,10 +225,7 @@ namespace InventoryApp
 
                 // List the whole inventory
                 case 1:
-                    Console.Clear();
-                    Console.WriteLine("Inventory:");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    printInventory();
                     break;
 
                 // Create a new invoice
@@ -267,6 +260,31 @@ namespace InventoryApp
 
             loadUserMenu(); // load user menu again 
 
+        }
+
+        static void printInventory()
+        {
+            string[] inv = ReadFiles.ListInventory();
+            Console.Clear();
+            Console.WriteLine("Inventory:");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("");
+            Console.WriteLine("Total Items: {0}", inv.Length);
+            Console.WriteLine("");
+
+            foreach (string line in inv)
+            {
+                Console.WriteLine("\t" + line);
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("");
+
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }
