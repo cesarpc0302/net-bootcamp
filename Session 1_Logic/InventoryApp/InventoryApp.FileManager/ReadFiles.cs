@@ -14,6 +14,21 @@ namespace InventoryApp.FileManager
             return lines;
         }
         
+        public static string[][] GetAllItems()
+        {
+            string[] Inv = ListInventory();
+            string[][] FinalInv = new string[Inv.Length][];
+
+            for (int i = 0; i < Inv.Length; i++)
+            {
+                string text = Inv[i];
+                string[] separators = {" - "};
+                FinalInv[i] = text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            }
+
+            return FinalInv;
+
+        }
 
     }
 }

@@ -145,10 +145,7 @@ namespace InventoryApp
 
                 // Modify the artile quantities
                 case 3:
-                    Console.Clear();
-                    Console.WriteLine("Modify article quantity:");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    ModifyQuantity();
                     break;
 
                 // Remove an article
@@ -299,7 +296,6 @@ namespace InventoryApp
 
         static void CreateArticle()
         {
-            int test = 0;
 
             Console.Clear();
             Console.WriteLine("Create new article:");
@@ -310,7 +306,7 @@ namespace InventoryApp
             Console.Write("Article ID: ");
             string ArticleID = Console.ReadLine();
 
-            while (!Int32.TryParse(ArticleID, out test))
+            while (!Int32.TryParse(ArticleID, out int test))
             {
                 Console.WriteLine("");
                 Console.WriteLine("Incorrect entry, please try again... ");
@@ -327,7 +323,7 @@ namespace InventoryApp
             Console.Write("Article Cost: ");
             string ArticleCost = Console.ReadLine();
 
-            while (!Int32.TryParse(ArticleCost, out test))
+            while (!Int32.TryParse(ArticleCost, out int test))
             {
                 Console.WriteLine("");
                 Console.WriteLine("Incorrect entry, please try again... ");
@@ -340,7 +336,7 @@ namespace InventoryApp
             Console.Write("Article Quantity: ");
             string ArticleQuantity = Console.ReadLine();
 
-            while (!Int32.TryParse(ArticleQuantity, out test))
+            while (!Int32.TryParse(ArticleQuantity, out int test))
             {
                 Console.WriteLine("");
                 Console.WriteLine("Incorrect entry, please try again... ");
@@ -357,6 +353,66 @@ namespace InventoryApp
             WriteFiles.AddArticle(Article);
 
             Console.WriteLine("Article added succesfully!");
+            Console.WriteLine("");
+        }
+
+
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // Modify article quantity
+
+        static void ModifyQuantity()
+        {
+            Console.Clear();
+            Console.WriteLine("Modify article quantity:");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+
+            Console.WriteLine("");
+            Console.Write("Article ID: ");
+            string ArticleID = Console.ReadLine();
+
+            while (!Int32.TryParse(ArticleID, out int ID))
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Incorrect entry, please try again... ");
+                Console.WriteLine("");
+                Console.Write("Article ID: ");
+                ArticleID = Console.ReadLine();
+            }
+
+            Console.WriteLine("");
+            Console.Write("Quantity to add: ");
+            string ArticleQuantity = Console.ReadLine();
+
+            while (!Int32.TryParse(ArticleQuantity, out int Quantity))
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Incorrect entry, please try again... ");
+                Console.WriteLine("");
+                Console.Write("Quantity to add: ");
+                ArticleQuantity = Console.ReadLine();
+            }
+
+            int result = WriteFiles.ModifyQuantity(ArticleID, ArticleQuantity);
+
+            Console.Clear();
+            switch (result)
+            {
+                case 0:
+                    Console.WriteLine("Article ID not found");
+                    break;
+                case 1:
+                    Console.WriteLine("Article updated succesfully!");
+                    break;
+                case 2:
+                    Console.WriteLine("Not enough product in stock to proceed with the transaction");
+                    break;
+                default:
+                    break;
+            }
+            
             Console.WriteLine("");
         }
 
