@@ -221,11 +221,7 @@ namespace InventoryApp
 
                 // Create a new invoice
                 case 2:
-
-                    Console.Clear();
-                    Console.WriteLine("Create new invoice:");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    CreateInvoice();
                     break;
 
                 // Display te invoices report
@@ -466,5 +462,112 @@ namespace InventoryApp
 
             Console.WriteLine("");
         }
+
+
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // Create new invoice
+
+        static void CreateInvoice()
+        {
+            Console.Clear();
+            Console.WriteLine("Create new invoice:");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+
+            
+
+            bool AddNewArticle = true;
+            string Invoice = "";
+
+
+            do
+            {
+
+                Invoice = Invoice + AddItem();
+
+                Console.WriteLine("");
+                Console.Write("Do you want to add more items? (y/n): ");
+                string AddArticle = Console.ReadLine();
+
+                while (AddArticle != "y" && AddArticle != "Y" && AddArticle != "yes" && AddArticle != "Yes" && AddArticle != "YES" && AddArticle != "n" && AddArticle != "no" && AddArticle != "N" && AddArticle != "NO" && AddArticle != "No")
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Incorrect entry, please try again... ");
+                    Console.WriteLine("");
+                    Console.Write("Do you want to add more items (y/n): ");
+                    AddArticle = Console.ReadLine();
+                }
+
+                if (AddArticle == "n" || AddArticle == "N" || AddArticle == "no" || AddArticle == "NO" || AddArticle == "No")
+                {
+                    AddNewArticle = false;
+                }
+
+            } while (AddNewArticle);
+
+
+            WriteFiles.CreateInvoice(Invoice);
+
+            Console.Clear();
+
+        }
+
+        static string AddItem()
+        {
+            string Item = "";
+
+            Console.WriteLine("");
+            Console.Write("Article ID: ");
+            string ArticleID = Console.ReadLine();
+
+            while (!Int32.TryParse(ArticleID, out int ID))
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Incorrect entry, please try again... ");
+                Console.WriteLine("");
+                Console.Write("Article ID: ");
+                ArticleID = Console.ReadLine();
+            }
+
+            Console.WriteLine("");
+            Console.Write("Quantity: ");
+            string ArticleQuantity = Console.ReadLine();
+
+            while ((!Int32.TryParse(ArticleQuantity, out int Quantity)) || Quantity < 0)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Incorrect entry, please try again... ");
+                Console.WriteLine("");
+                Console.Write("Quantity to add: ");
+                ArticleQuantity = Console.ReadLine();
+            }
+
+            string ArtQuantity = "-" + ArticleQuantity; 
+
+            int result = WriteFiles.ModifyQuantity(ArticleID, ArtQuantity);
+
+            Console.WriteLine("");
+
+            switch (result)
+            {
+                case 0:
+                    Console.WriteLine("Article ID not found");
+                    break;
+                case 1:
+                    Console.WriteLine("Article added succesfully!");
+                    Item = ArticleID + "&" + ArticleQuantity + " - ";
+                    break;
+                case 2:
+                    Console.WriteLine("Not enough product in stock to proceed with the transaction");
+                    break;
+                default:
+                    break;
+            }
+
+            return Item;
+        }
+
     }
 }

@@ -31,5 +31,19 @@ namespace InventoryApp.FileManager
                 return true;
             }
         }
+
+        public static string[] GetDescription(string[][] Inventory, string ID)
+        {
+            string[] result = new string[Inventory[0].Length];
+            for (int i = 0; i < Inventory.Length; i++)
+            {
+                if (ID == Inventory[i][0])
+                {
+                    result = Inventory[i];
+                }
+            }
+            return result;
+            
+        }
     }
 }

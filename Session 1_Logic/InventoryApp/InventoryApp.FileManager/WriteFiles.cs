@@ -8,7 +8,7 @@ namespace InventoryApp.FileManager
 {
     public static class WriteFiles
     {
-
+        
         // return 1 = todo bien
         // return 0 = ya existe el ID
         public static int AddArticle(string ID, string article)
@@ -63,6 +63,7 @@ namespace InventoryApp.FileManager
                     {
                         output = 1;
                         Inv[i][3] = (Int32.Parse(Inv[i][3]) + (Int32.Parse(quantity))).ToString();
+                        
                     }
                     else
                     {
@@ -107,6 +108,50 @@ namespace InventoryApp.FileManager
             System.IO.File.WriteAllText(@"Inventory.txt", result);
             return output;
         }
+
+
+
+        public static void CreateInvoice(string Invoice)
+        {
+            string Result = "Quant\t - Descript\t - Cost\t - Total x Product\r\n";
+            string[][] Inv = ReadFiles.GetAllItems();
+            
+            string[] separators = { " - " };
+            string[] InvoiceLines = Invoice.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            
+            string[][] FinalLines = new string[InvoiceLines.Length][];
+
+            string[] sep = { "&" };
+            for (int i = 0; i < InvoiceLines.Length; i++)
+            {
+                FinalLines[i] = InvoiceLines[i].Split(sep, StringSplitOptions.RemoveEmptyEntries);
+            }
+
+            int InvoiceCost = 0;
+
+            for (int i = 0; i < InvoiceLines.Length; i++)
+            {
+                string[] Description = AuxiliaryFunctions.GetDescription(Inv, FinalLines[i][0]);
+                int Quantity = 0;
+                Int32.TryParse(FinalLines[i][1], out Quantity);
+                int Cost = 0;
+                Int32.TryParse(Description[2], out Cost);
+                int CostTotal = Quantity * Cost;
+                InvoiceCost += CostTotal;
+
+                Result = Result + FinalLines[i][1] + "\t - " + Description[1] + "\t - " + Description[2] + "\t - " + CostTotal + "\r\n";
+
+            }
+
+            string InvoiceDate = DateTime.Now.ToString();
+            InvoiceDate = InvoiceDate.Replace(" ", string.Empty);
+            InvoiceDate = InvoiceDate.Replace(":", string.Empty);
+            InvoiceDate = InvoiceDate.Replace("/", string.Empty);
+
+            Result = Result + "Total Cost: $" +InvoiceCost;
+            System.IO.File.WriteAllText(@"Invoices\" + InvoiceDate + ".txt", Result);
+        }
+
 
     }
 }
