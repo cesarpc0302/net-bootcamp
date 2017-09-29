@@ -35,7 +35,7 @@ namespace InventoryApp
             {
                 Console.WriteLine("The application is currently locked for security reasons.");
                 Console.WriteLine("Please contact your system administrator.");
-                Console.WriteLine("Press any key to exit...");
+                Console.WriteLine("Press ENTER to exit...");
                 Console.ReadLine();
             }
             
@@ -150,16 +150,13 @@ namespace InventoryApp
 
                 // Remove an article
                 case 4:
-                    Console.Clear();
-                    Console.WriteLine("Remove article:");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    RemoveArticle();
                     break;
 
                 // Exit application
                 case 5:
                     Console.Clear();
-                    Console.WriteLine("Exiting... Press any key to continue...");
+                    Console.WriteLine("Exiting... Press ENTER to continue...");
                     return;
 
                 // Invalid input case
@@ -242,7 +239,7 @@ namespace InventoryApp
                 // Exit application
                 case 4:
                     Console.Clear();
-                    Console.WriteLine("Exiting... Press any key to continue...");
+                    Console.WriteLine("Exiting... Press Enter to continue...");
                     return;
 
                 // Invalid option case
@@ -283,7 +280,7 @@ namespace InventoryApp
             Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
             Console.WriteLine("");
 
-            Console.WriteLine("Press any key to return to the main menu...");
+            Console.WriteLine("Press ENTER to return to the main menu...");
             Console.ReadLine();
             Console.Clear();
         }
@@ -350,10 +347,19 @@ namespace InventoryApp
 
             string Article = ArticleID + " - " + ArticleName + " - " + ArticleCost + " - " + ArticleQuantity;
 
-            WriteFiles.AddArticle(Article);
+            int result = WriteFiles.AddArticle(ArticleID, Article);
 
-            Console.WriteLine("Article added succesfully!");
-            Console.WriteLine("");
+            if (result == 1)
+            {
+                Console.WriteLine("Article added succesfully!");
+                Console.WriteLine("");
+            }
+            else
+            {
+                Console.WriteLine("The ID is aready in use, please select another one");
+                Console.WriteLine("");
+            }
+            
         }
 
 
@@ -417,5 +423,48 @@ namespace InventoryApp
         }
 
 
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // Remove article
+
+        static void RemoveArticle()
+        {
+            Console.Clear();
+            Console.WriteLine("Remove article: ");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+
+            Console.WriteLine("");
+            Console.Write("Article ID: ");
+            string ArticleID = Console.ReadLine();
+
+            while (!Int32.TryParse(ArticleID, out int ID))
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Incorrect entry, please try again... ");
+                Console.WriteLine("");
+                Console.Write("Article ID: ");
+                ArticleID = Console.ReadLine();
+            }
+           
+
+            int result = WriteFiles.RemoveArticle(ArticleID);
+
+            Console.Clear();
+            switch (result)
+            {
+                case 0:
+                    Console.WriteLine("Article ID not found, nothing to remove");
+                    break;
+                case 1:
+                    Console.WriteLine("Article removed succesfully!");
+                    break;
+                default:
+                    break;
+            }
+
+            Console.WriteLine("");
+        }
     }
 }

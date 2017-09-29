@@ -9,13 +9,42 @@ namespace InventoryApp.FileManager
     public static class WriteFiles
     {
 
-        public static void AddArticle(string article)
+        // return 1 = todo bien
+        // return 0 = ya existe el ID
+        public static int AddArticle(string ID, string article)
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Inventory.txt", true))
+            int output = 0;
+            if (CheckID(ID))
             {
-                file.WriteLine(article);
+                return output;
             }
+            else
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"Inventory.txt", true))
+                {
+                    file.WriteLine(article);
+                }
+                output = 1;
+            }
+            return output;
+            
         }
+
+
+        //Check if the ID already exists
+        public static bool CheckID(string ID)
+        {
+            string[][] Inv = ReadFiles.GetAllItems();
+            for (int i = 0; i < Inv.Length; i++)
+            {
+                if (AuxiliaryFunctions.CheckID(ID, Inv[i][0]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    
 
 
         // return 1 = todo bien
@@ -51,7 +80,33 @@ namespace InventoryApp.FileManager
             return output;
         }
 
+        // return 1 = todo bien
+        // return 0 = no existe el ID
+        public static int RemoveArticle(string ID)
+        {
+            string result = "";
+            int output = 0;
+            string[][] Inv = ReadFiles.GetAllItems();
+            for (int i = 0; i < Inv.Length; i++)
+            {
+                if (AuxiliaryFunctions.CheckID(ID, Inv[i][0]))
+                {
+                    output = 1;
+                }
+                else
+                {
+                    result = result + Inv[i][0] + " - " + Inv[i][1] + " - " + Inv[i][2] + " - " + Inv[i][3];
+                    if (i < Inv.Length - 1)
+                    {
+                        result = result + "\r\n";
+                    }
+                }
+                
+            }
 
+            System.IO.File.WriteAllText(@"Inventory.txt", result);
+            return output;
+        }
 
     }
 }
