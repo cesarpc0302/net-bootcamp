@@ -226,10 +226,7 @@ namespace InventoryApp
 
                 // Display te invoices report
                 case 3:
-                    Console.Clear();
-                    Console.WriteLine("Invoices report:");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
-                    Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+                    InvoiceReport();
                     break;
 
                 // Exit application
@@ -567,6 +564,27 @@ namespace InventoryApp
             }
 
             return Item;
+        }
+
+
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------
+        // Invoice Report
+
+        static void InvoiceReport()
+        {
+            Console.Clear();
+            Console.WriteLine("Invoices report:");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+            Console.WriteLine("-- -- -- -- -- -- -- -- -- --");
+
+            string Result = FileManager.ReadFiles.InvoiceReport();
+            Console.WriteLine(Result);
+            Console.WriteLine("");
+            Console.WriteLine("Press ENTER to continue...");
+            Console.ReadLine();
+            Console.Clear();
         }
 
     }

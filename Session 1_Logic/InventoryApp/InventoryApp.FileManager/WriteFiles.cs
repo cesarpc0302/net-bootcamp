@@ -113,7 +113,7 @@ namespace InventoryApp.FileManager
 
         public static void CreateInvoice(string Invoice)
         {
-            string Result = "Quant\t - Descript\t - Cost\t - Total x Product\r\n";
+            string Result = "Quant\t | Descript\t | Cost\t | Total x Product\r\n";
             string[][] Inv = ReadFiles.GetAllItems();
             
             string[] separators = { " - " };
@@ -139,7 +139,7 @@ namespace InventoryApp.FileManager
                 int CostTotal = Quantity * Cost;
                 InvoiceCost += CostTotal;
 
-                Result = Result + FinalLines[i][1] + "\t - " + Description[1] + "\t - " + Description[2] + "\t - " + CostTotal + "\r\n";
+                Result = Result + FinalLines[i][1] + "\t | " + Description[1] + "\t | " + Description[2] + "\t | " + CostTotal + "\r\n";
 
             }
 
