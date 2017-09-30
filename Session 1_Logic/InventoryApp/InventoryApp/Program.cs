@@ -8,7 +8,9 @@ namespace InventoryApp
     {
         static void Main(string[] args)
         {
-            Properties.Settings.Default.Bloked = false;  //for testing purposes
+
+            //Properties.Settings.Default.Bloked = false; //for testing purposes
+
             // Validate if application is locked
             if (!Properties.Settings.Default.Bloked)
             {
