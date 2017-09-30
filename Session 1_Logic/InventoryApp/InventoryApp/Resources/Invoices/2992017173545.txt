@@ -1,0 +1,7 @@
+Quant	 | Descript	 | Cost	 | Total x Product
+3	 | Article 23	 | 100	 | 300
+2	 | Article 1	 | 1230	 | 2460
+3	 | Article 15	 | 2340	 | 7020
+2	 | Article 12	 | 3425	 | 6850
+23	 | Article 3	 | 30	 | 690
+Total Cost: $17320
