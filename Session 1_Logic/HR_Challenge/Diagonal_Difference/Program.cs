@@ -21,11 +21,12 @@ namespace Diagonal_Difference
 
             int diag1 = 0;
             int diag2 = 0;
+            int arrLength = a.Length - 1;
 
             for (int i = 0; i < a.Length; i++)
             {
                 diag1 += a[i][i];
-                diag2 += a[i][a.Length - i - 1];
+                diag2 += a[i][arrLength - i];
             }
 
             Console.WriteLine(Math.Abs(diag1 - diag2));

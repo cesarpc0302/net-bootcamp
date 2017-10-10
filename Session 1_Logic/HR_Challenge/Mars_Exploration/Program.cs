@@ -17,12 +17,12 @@ namespace Mars_Exploration
             {
                 if (i % 3 == 1)
                 {
-                    if (S.Substring(i, 1) != "O")
+                    if (S[i] != 'O')
                     {
                         result++;
                     }
                 }
-                else if (S.Substring(i, 1) != "S")
+                else if (S[i] != 'S')
                 {
                     result++;
                 }

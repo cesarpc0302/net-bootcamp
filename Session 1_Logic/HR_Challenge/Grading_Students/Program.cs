@@ -10,26 +10,15 @@ namespace Grading_Students
     {
         static int[] solve(int[] grades)
         {
-            int[] finalGrades = new int[grades.Length];
-            int i = 0;
-            foreach (int value in grades)
+            for (int i = 0; i < grades.Length; i++)
             {
-                if (value < 38)
+                if ( (grades[i] > 38) && ((grades[i] % 5) >= 3) )
                 {
-                    finalGrades[i] = value;
+                    grades[i] = grades[i] - (grades[i] % 5) + 5;
                 }
-                else if ((value % 5) < 3)
-                {
-                    finalGrades[i] = value;
-                }
-                else
-                {
-                    finalGrades[i] = value - (value % 5) + 5;
-                }
-                i++;
             }
 
-            return finalGrades;
+            return grades;
         }
 
         static void Main(String[] args)
@@ -40,8 +29,8 @@ namespace Grading_Students
             {
                 grades[grades_i] = Convert.ToInt32(Console.ReadLine());
             }
-            int[] result = solve(grades);
-            Console.WriteLine(String.Join("\n", result));
+            grades = solve(grades);
+            Console.WriteLine(String.Join("\n", grades));
             Console.Read();
 
         }

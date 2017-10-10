@@ -17,12 +17,10 @@ namespace Marcs_Cakewalk
             Array.Sort(calories);
             Array.Reverse(calories);
             long miles = 0;
-            int i = 0;
 
-            foreach (int value in calories)
-            {
-                miles += value * Convert.ToInt64(Math.Pow(2, i));
-                i++;
+            for (int i = 0; i < calories.Length; i++)
+            { 
+                miles += calories[i] * Convert.ToInt64(Math.Pow(2, i));
             }
 
             Console.WriteLine(miles);
