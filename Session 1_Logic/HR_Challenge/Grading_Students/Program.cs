@@ -12,7 +12,7 @@ namespace Grading_Students
         {
             for (int i = 0; i < grades.Length; i++)
             {
-                if ( (grades[i] > 38) && ((grades[i] % 5) >= 3) )
+                if ( (grades[i] >= 38) && ((grades[i] % 5) >= 3) )
                 {
                     grades[i] = grades[i] - (grades[i] % 5) + 5;
                 }
